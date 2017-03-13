@@ -1,0 +1,10 @@
+<application>
+  <component name="NotificationConfiguration">
+    <toolWindow group="Flash app not compiled before launch" />
+    <toolWindow group="Find in Path" />
+    <toolWindow group="Web Deployment: File Transfer" />
+    <toolWindow group="Web Deployment: Remote Host" />
+    <toolWindow group="Inspection Results" />
+    <toolWindow group="Debugger messages" />
+  </component>
+</application>
