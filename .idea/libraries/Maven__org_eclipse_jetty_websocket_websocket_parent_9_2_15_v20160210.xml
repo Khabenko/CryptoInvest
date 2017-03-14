@@ -1,8 +1,6 @@
 <component name="libraryTable">
   <library name="Maven: org.eclipse.jetty.websocket:websocket-parent:9.2.15.v20160210">
-    <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/websocket/websocket-parent/9.2.15.v20160210/websocket-parent-9.2.15.v20160210.jar!/" />
-    </CLASSES>
+    <CLASSES />
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/websocket/websocket-parent/9.2.15.v20160210/websocket-parent-9.2.15.v20160210-javadoc.jar!/" />
     </JAVADOC>
