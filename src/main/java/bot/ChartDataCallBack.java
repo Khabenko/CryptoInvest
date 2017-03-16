@@ -22,7 +22,7 @@ public class ChartDataCallBack implements PoloniexCallBack<List<ChartData>> {
         Gson gson = new Gson();
         String string = gson.toJson(response);
         Logger logger = Logger.getLogger("HI");
-     //   logger.info(string);
+        //logger.info(string);
 
         candlesList.addAll(response);
 
@@ -36,7 +36,9 @@ public class ChartDataCallBack implements PoloniexCallBack<List<ChartData>> {
 
     public static ArrayList<ChartData> getCandels(String currencyPair, String period){
         Date curentdate = new Date();
-        String strat = String.valueOf((curentdate.getTime()/1000)-21600); // Дата за который возвразяет свечки
+               String strat = String.valueOf((curentdate.getTime()/1000)-21600); // Дата за который возвразяет свечки
+       //     String strat = String.valueOf((curentdate.getTime()/1000)-86400); // Дата за который возвразяет свечки
+
 
         PublicMethods publicMethods = new PublicMethods();
 
