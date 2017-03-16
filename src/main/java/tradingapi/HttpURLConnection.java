@@ -135,13 +135,19 @@ public  class HttpURLConnection {
 
         CloseableHttpResponse response = httpClient.execute(post);
         HttpEntity responseEntity = response.getEntity();
-        System.out.println(response.getStatusLine());
+     // System.out.println(response.getStatusLine());
      // System.out.println(EntityUtils.toString(responseEntity));
         String resp = EntityUtils.toString(responseEntity);
-        System.out.println(resp);
+
 
         Gson gson = new Gson();
-        mapBalance = gson.fromJson(resp, new TypeToken<Map<String,HashMap<String,String>>>(){}.getType());
+        try {
+            mapBalance = gson.fromJson(resp, new TypeToken<Map<String,HashMap<String,String>>>(){}.getType());
+        }catch (Exception e)
+        {
+            System.out.println(resp);
+        }
+
 
 
 

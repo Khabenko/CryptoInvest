@@ -36,7 +36,7 @@ public class ChartDataCallBack implements PoloniexCallBack<List<ChartData>> {
 
     public static ArrayList<ChartData> getCandels(String currencyPair, String period){
         Date curentdate = new Date();
-               String strat = String.valueOf((curentdate.getTime()/1000)-21600); // Дата за который возвразяет свечки
+               String strat = String.valueOf((curentdate.getTime()/1000)-28800); // Дата за который возвразяет свечки
        //     String strat = String.valueOf((curentdate.getTime()/1000)-86400); // Дата за который возвразяет свечки
 
 
