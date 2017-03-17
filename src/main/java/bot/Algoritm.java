@@ -19,6 +19,7 @@ public class Algoritm {
     private BigDecimal balanceCurrenc = null;
     private BigDecimal lowerAsk;
     private BigDecimal LastPrice;
+    private BigDecimal limit = new BigDecimal(0.01);
 
     private HttpURLConnection http  = new HttpURLConnection();
 
@@ -28,6 +29,7 @@ public class Algoritm {
     private int candel3;
     private int lastCendelBuy;
     private  boolean openOorder;
+
 
 
 
@@ -86,20 +88,22 @@ public class Algoritm {
 
 
 
-                     candel1 = candlesList.get(candlesList.size() - 4).getOpen().compareTo(candlesList.get(candlesList.size() - 2).getClose());
+                //     candel1 = candlesList.get(candlesList.size() - 4).getOpen().compareTo(candlesList.get(candlesList.size() - 2).getClose());
                       candel2 = candlesList.get(candlesList.size() - 3).getOpen().compareTo(candlesList.get(candlesList.size() - 2).getClose());
                       candel3 = candlesList.get(candlesList.size() - 2).getOpen().compareTo(candlesList.get(candlesList.size() - 2).getClose());
 
 
 
 
-                    if (candel1==1 && candel2 == 1&& candel3 == 1 && balanceBTC !=null && http.getOpenOrder()=="[]") {
+                    if (candel2 == 1&& candel3 == 1 && balanceBTC !=null && http.getOpenOrder()=="[]") {
                         System.out.println("-------------");
                         System.out.println("Покупка: Закрылась красная свеча");
                         try {
                             /// Добавить проврку на баланс
                             Thread.sleep(100);
+                            if (balanceBTC.compareTo(limit)== -1)
                            http.sendPostBuy(currencyPair,String.valueOf(tikerMap.get(currencyPair).getLowerAsk()),String.valueOf(balanceBTC.divide(tikerMap.get(currencyPair).getLowerAsk(), 8, 1 / 3)));
+                            else http.sendPostBuy(currencyPair,String.valueOf(tikerMap.get(currencyPair).getLowerAsk()),String.valueOf(limit.divide(tikerMap.get(currencyPair).getLowerAsk(), 8, 1 / 3)));
                         } catch (Exception e) {
                             System.out.println("Buy error");
                             System.out.println(e);
@@ -111,9 +115,10 @@ public class Algoritm {
                     System.out.println("-------------");
                     System.out.println("Покупка: Резкий скачек");
                     try {
-                        /// Добавить проврку на баланс
                         Thread.sleep(100);
+                        if (balanceBTC.compareTo(limit)== -1)
                              http.sendPostBuy(currencyPair,String.valueOf(lastCandel.getClose()),String.valueOf(balanceBTC.divide(lastCandel.getClose(), 8, 1 / 3)));
+                        else       http.sendPostBuy(currencyPair,String.valueOf(lastCandel.getClose()),String.valueOf(limit.divide(lastCandel.getClose(), 8, 1 / 3)));
                     } catch (Exception e) {
                         System.out.println("Buy error");
                         System.out.println(e);
@@ -129,7 +134,7 @@ public class Algoritm {
                         try {
                             /// Добавить проврку на баланс
                             System.out.println("OPEN "+lastCandel.getOpen());
-                          http.sendPostSell(currencyPair,String.valueOf(tikerMap.get(currencyPair).getLowerAsk().multiply(BigDecimal.valueOf(1.01))), String.valueOf(balanceCurrenc));
+                          http.sendPostSell(currencyPair,String.valueOf(tikerMap.get(currencyPair).getLowerAsk().multiply(BigDecimal.valueOf(1.10))), String.valueOf(balanceCurrenc));
                         } catch (Exception e) {
                             System.out.println("Sell error");
                             System.out.println(e);
