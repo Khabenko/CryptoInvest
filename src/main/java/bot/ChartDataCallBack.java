@@ -5,9 +5,7 @@ import com.google.gson.Gson;
 import domain.ChartData;
 import service.PoloniexCallBack;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -15,17 +13,29 @@ import java.util.logging.Logger;
  */
 
 public class ChartDataCallBack implements PoloniexCallBack<List<ChartData>> {
-   public static ArrayList<ChartData> candlesList = new ArrayList<>();
+   public static Map<String,ArrayList<ChartData>> candlesMap = new HashMap<>();
+   private String currency;
+   private ArrayList<ChartData> candlesList = new ArrayList<>();
+
+    public ChartDataCallBack(String currency) {
+        this.currency = currency;
+    }
 
     @Override
     public void success(List<ChartData> response) {
         Gson gson = new Gson();
         String string = gson.toJson(response);
         Logger logger = Logger.getLogger("HI");
-        //logger.info(string);
+      //  logger.info(string);
+        try {
 
-        candlesList.addAll(response);
-
+            candlesList.addAll(response);
+            candlesMap.put(currency, candlesList);
+        }catch (Exception e)
+        {
+            System.out.println("Ошибка при получени масива свечей");
+            e.printStackTrace();
+        }
 
     }
 
@@ -34,17 +44,15 @@ public class ChartDataCallBack implements PoloniexCallBack<List<ChartData>> {
         System.out.println(error);
     }
 
-    public static ArrayList<ChartData> getCandels(String currencyPair, String period){
-        Date curentdate = new Date();
-               String strat = String.valueOf((curentdate.getTime()/1000)-28800); // Дата за который возвразяет свечки
-       //     String strat = String.valueOf((curentdate.getTime()/1000)-86400); // Дата за который возвразяет свечки
+    public  Map<String,ArrayList<ChartData>> getCandlesMap (String currencyPair, String period){
 
+               Date curentdate = new Date();
+               String strat = String.valueOf((curentdate.getTime()/1000)-57600); // Дата за который возвразяет свечки
 
-        PublicMethods publicMethods = new PublicMethods();
+         PublicMethods publicMethods = new PublicMethods();
+         publicMethods.returnChartData(new ChartDataCallBack(currencyPair),currencyPair,strat,String.valueOf(curentdate.getTime()),period);
 
-        publicMethods.returnChartData(new ChartDataCallBack(),currencyPair,strat,String.valueOf(curentdate.getTime()),period);
-
-
-        return candlesList;
+          return candlesMap;
     }
+
 }

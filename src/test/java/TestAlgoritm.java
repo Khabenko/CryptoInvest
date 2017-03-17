@@ -1,3 +1,4 @@
+/*
 import domain.ChartData;
 import domain.Ticker;
 
@@ -12,6 +13,7 @@ import static java.math.BigDecimal.ROUND_DOWN;
 /**
  * Created by M.Khabenko on 3/16/2017.
  */
+/*
 public class TestAlgoritm {
     public static void main(String[] args) throws InterruptedException {
         BigDecimal balanceBTC = new BigDecimal("0.010000000");
@@ -148,3 +150,4 @@ public class TestAlgoritm {
 
 
 }
+*/

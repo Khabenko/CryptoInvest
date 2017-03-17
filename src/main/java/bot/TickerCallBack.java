@@ -22,8 +22,14 @@ public class TickerCallBack implements PoloniexCallBack<Map<String, Ticker>> {
         String string = gson.toJson(response);
         Logger logger = Logger.getLogger("HI");
      //   logger.info(string);
-
-        tikerMap.putAll(response);
+        try {
+            tikerMap.putAll(response);
+        }
+       catch (Exception e)
+       {
+           System.out.println("Ошибка при получении тикера");
+           e.printStackTrace();
+       }
 
 
     }

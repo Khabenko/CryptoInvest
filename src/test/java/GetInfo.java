@@ -1,4 +1,4 @@
-package bot;
+/*
 
 import domain.ChartData;
 import domain.Ticker;
@@ -11,9 +11,7 @@ import static bot.TickerCallBack.getTicker;
 import static bot.TickerCallBack.tikerMap;
 import static java.math.BigDecimal.ROUND_DOWN;
 
-/**
- * Created by M.Khabenko on 3/15/2017.
- */
+
 public class GetInfo {
     public static void main(String[] args) throws InterruptedException {
         BigDecimal balanceBTC = new BigDecimal("0.010000000");
@@ -126,24 +124,5 @@ public class GetInfo {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+*/

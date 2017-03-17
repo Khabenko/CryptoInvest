@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class Ticker  {
 
     private BigDecimal last;
-    private BigDecimal lowerAsk;
+    private BigDecimal lowestAsk;
     private BigDecimal percentChange;
     private BigDecimal baseVolume;
     private BigDecimal quoteVolume;
@@ -22,11 +22,11 @@ public class Ticker  {
     }
 
     public BigDecimal getLowerAsk() {
-        return lowerAsk;
+        return lowestAsk;
     }
 
     public void setLowerAsk(BigDecimal lowerAsk) {
-        this.lowerAsk = lowerAsk;
+        this.lowestAsk = lowestAsk;
     }
 
     public BigDecimal getPercentChange() {

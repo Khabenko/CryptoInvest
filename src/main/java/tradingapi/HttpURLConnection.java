@@ -2,6 +2,7 @@ package tradingapi;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import domain.OpenOrders;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
@@ -24,23 +25,13 @@ public  class HttpURLConnection {
       static String secret = "edf8219430736ebdd4294f17a69d249fa609d2ae983d6ddd22aea43b75c7c6653d1fd7e27d7d9857ae7884d014349fcd30304236c3ea6812b0c4af258712295b";
       static String key ="A3VGOXC7-JJZVO6VA-OXWWEHBQ-D7IXEXGE";
       public static Map<String,Map<String,String>> mapBalance;
-      public String openOrder;
-
-    public static void main(String[] args) throws Exception {
-
-        HttpURLConnection http = new HttpURLConnection();
-
-        System.out.println("\nTesting 2 - Send Http POST request");
-     ///   http.sendPostBuy("BTC","1","1");
-        http.sendPostAvailableAccountBalances();
-        System.out.println(mapBalance);
+      public static Map<String,ArrayList<OpenOrders>> mapOpenOrders;
 
 
-    }
 
 
     // HTTP POST request
-    public void sendPostBuy(String currencyPair, String rate, String amount ) throws Exception {
+    public synchronized void sendPostBuy(String currencyPair, String rate, String amount ) throws Exception {
 
         String url = "https://poloniex.com/tradingApi";
         String nonce = String.valueOf(System.currentTimeMillis());
@@ -73,7 +64,7 @@ public  class HttpURLConnection {
 
     }
 
-    public  void sendPostSell(String currencyPair, String rate, String amount ) throws Exception {
+    public synchronized void sendPostSell(String currencyPair, String rate, String amount ) throws Exception {
 
 
         String url = "https://poloniex.com/tradingApi";
@@ -109,7 +100,7 @@ public  class HttpURLConnection {
     }
 
 
-    public void sendPostAvailableAccountBalances() throws Exception {
+    public synchronized  void sendPostAvailableAccountBalances() throws Exception {
 
         String url = "https://poloniex.com/tradingApi";
         String nonce = String.valueOf(System.currentTimeMillis());
@@ -149,11 +140,14 @@ public  class HttpURLConnection {
         }
     }
 
-    public String getOpenOrder() {
+    public String getOpenOrder(String curencyPair) {
+
+        String openOrder = mapOpenOrders.get(curencyPair).toString();
+        System.out.println("Сукааааааааа "+mapOpenOrders.get(curencyPair).toString());
         return openOrder;
     }
 
-    public void sendPostReturnOpenOrders(String currencyPair) throws Exception {
+    public synchronized void sendPostReturnOpenOrders(String currencyPair) throws Exception {
 
         String url = "https://poloniex.com/tradingApi";
         String nonce = String.valueOf(System.currentTimeMillis());
@@ -183,9 +177,24 @@ public  class HttpURLConnection {
         HttpEntity responseEntity = response.getEntity();
         // System.out.println(response.getStatusLine());
         // System.out.println(EntityUtils.toString(responseEntity));
-        openOrder = EntityUtils.toString(responseEntity);
+        String  openOrder = EntityUtils.toString(responseEntity);
 
 
+        Gson gson = new Gson();
+        try {
+
+            ArrayList<OpenOrders> listOpenOrders = new ArrayList<>();
+            listOpenOrders.clear();
+            listOpenOrders =gson.fromJson(openOrder, new TypeToken<ArrayList<OpenOrders>>() {
+            }.getType());
+
+            System.out.println("ЛистОрдес"+listOpenOrders);
+
+            mapOpenOrders.put(currencyPair,listOpenOrders);
+
+        } catch (Exception e) {
+            System.out.println(openOrder);
+        }
 
 
 
