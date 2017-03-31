@@ -27,11 +27,6 @@
       </SOURCES>
     </library>
     <library name="org.openqa.selenium" type="javaScript">
-      <properties>
-        <sourceFilesUrls>
-          <item url="file://$USER_HOME$/IdeaProjects/FreeBit" />
-        </sourceFilesUrls>
-      </properties>
       <CLASSES />
       <JAVADOC />
       <SOURCES />
